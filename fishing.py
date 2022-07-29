@@ -152,14 +152,14 @@ def main(exp, args):
         if args.demo == "image":
             start_fishing(predictor, agent)
 
-def start_fishing(predictor, agent, bite_timeout=45):
+def start_fishing(predictor, agent, bite_timeout=100):
     ff = FishFind(predictor)
-    env = Fishing(delay=0.1, max_step=10000, show_det=True)
+    env = Fishing(delay=0.1, max_step=10000, show_det=False)
 
     do_fish_count = 0
     while True:
         continue_flag = False
-        if do_fish_count > 4:
+        if do_fish_count >= 4:
             winsound.Beep(500, 1000)
             time.sleep(0.5)
             winsound.Beep(500, 1000)
@@ -168,10 +168,12 @@ def start_fishing(predictor, agent, bite_timeout=45):
             do_fish_count = 0
             break
         result: bool = ff.do_fish()
+        # result = True
 
         # continue if no fish found
         if not result:
             do_fish_count += 1
+            print("no fish_"+str(do_fish_count))
             continue
 
         do_fish_count = 0

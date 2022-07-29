@@ -146,7 +146,7 @@ class FishFind:
                     x_dist = fish_info[2][2] + self.dist_dict[fish_type] - rod_cx
 
                 print(x_dist, (fish_info[2][3] + fish_info[2][1]) / 2 - rod_info[2][3])
-                if abs(x_dist)<30 and abs((fish_info[2][3] + fish_info[2][1]) / 2 - rod_info[2][3])<30:
+                if abs(x_dist)<60 and abs((fish_info[2][3] + fish_info[2][1]) / 2 - rod_info[2][3])<60:
                     break
 
                 dx = int(move_func(x_dist))
@@ -154,7 +154,7 @@ class FishFind:
                 mouse_move(dx, dy)
             except Exception as e:
                 traceback.print_exc()
-            #time.sleep(0.3)
+            time.sleep(0.3)
         mouse_up(960, 540)
 
     def select_food(self, fish_type):
@@ -164,7 +164,8 @@ class FishFind:
         bbox_food = match_img(img, self.food_imgs[self.ff_dict[fish_type]], type=cv2.TM_SQDIFF_NORMED)
         mouse_click(bbox_food[4]+self.food_rgn[0], bbox_food[5]+self.food_rgn[1])
         time.sleep(0.5)
-        mouse_click(1183, 756)
+        mouse_click(1183, 765)
+        time.sleep(1)
 
     def do_fish(self, fish_init=True) -> bool:
         if fish_init:
